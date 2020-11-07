@@ -1,25 +1,46 @@
 const Band = require("./band");
+const BandModel = require('../models/bandDB');
 
 class Bands {
     constructor() {
-        this.bands = [];
+        this.listBands = [];
     }
 
     addBand(band = new Band()) {
-        this.bands.push(band);
+        const nuevaBanda = new BandModel({
+            id: band.id,
+            name: band.name,
+            votes: band.votes
+        });
+        nuevaBanda.save();
     }
+
+    // async getBandsBD() {
+    //     var listaAux = [];
+    //     var listaBandasBD = await BandModel.find();
+    //     listaBandasBD.forEach(element => {
+    //         var nuevaBanda = new Band();
+    //         nuevaBanda.id = element['id'];
+    //         nuevaBanda.name = element['name'];
+    //         nuevaBanda.votes = element['votes'];
+    //         listaAux.push(nuevaBanda);
+    //     });
+    //     return listaAux;
+    // }
 
     getBands() {
-        return this.bands;
+        return this.listBands;
     }
 
-    deleteBand(id = ''){
-        this.bands = this.bands.filter(band => band.id !== id);
-        return this.bands;
+    async deleteBand(id = ''){
+        // await BandModel.findByIdAndDelete(id);
+        this.listBands = this.getBands();
+        this.listBands = this.listBands.filter(band => band.id !== id);
+        return this.listBands;
     }
 
     voteBand(id = ''){
-        this.bands = this.bands.map(band => {
+        this.listBands = this.listBands.map(band => {
             if(band.id === id){
                 band.votes++;
                 return band;

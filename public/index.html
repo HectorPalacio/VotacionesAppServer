@@ -6,7 +6,7 @@
     <title>SocketServer</title>
 </head>
 <body>
-    <h1>Acceso denegado</h1>
+    <h1>엑또르 팔라시오</h1>
     <script src="socket.io/socket.io.js"></script>
     <script>
         var socket = io();
@@ -17,7 +17,7 @@
             console.log('Perdimos conexión')
         });
 
-        socket.emit('mensaje', {nombre: 'Hector'});
+        // socket.emit('mensaje', {nombre: 'Hola'});
         
         socket.on('nuevo-mensaje', function(payload){
             console.log('Escuchando', payload);
